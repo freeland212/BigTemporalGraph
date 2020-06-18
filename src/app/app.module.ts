@@ -10,6 +10,8 @@ import { SelectGraphComponent } from './select-graph/select-graph.component';
 import { SnapshotComponent } from './snapshot/snapshot.component';
 import { DifferenceComponent } from './difference/difference.component';
 import { GroupingComponent } from './grouping/grouping.component'
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { GroupingComponent } from './grouping/grouping.component'
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

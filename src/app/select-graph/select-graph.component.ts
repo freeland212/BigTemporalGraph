@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelectGraphComponent implements OnInit {
 
-  constructor() { }
+  public graphs: string[];
+  constructor() {
+    this.graphs = ["Graph1","Graph2"];
+   }
 
   ngOnInit(): void {
   }
