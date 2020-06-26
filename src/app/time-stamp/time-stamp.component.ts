@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-time-stamp',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./time-stamp.component.scss']
 })
 export class TimeStampComponent implements OnInit {
+
+
+  @ViewChild('picker') picker: any;
 
   constructor() { }
 

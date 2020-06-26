@@ -1,6 +1,6 @@
-<mat-form-field>
-    <input matInput >
-    <mat-datepicker-toggle matSuffix ></mat-datepicker-toggle>
-    <ngx-mat-datetime-picker      >
+  <mat-form-field>
+    <input matInput [ngxMatDatetimePicker]="picker" placeholder="Wähle ein Datum">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #picker>
     </ngx-mat-datetime-picker>
   </mat-form-field>
