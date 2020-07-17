@@ -1,0 +1,356 @@
+swagger: '2.0'
+info:
+  description: API for Temporal Graph
+  version: 1.0.0
+  title: Temporal Graph API
+  # put the contact info for your development or API team
+  contact:
+    email: ji67mary@studserv.uni-leipzig.de
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+paths:
+  /graph:
+    get:
+      summary: Get available Graphs
+      operationId: getGraphs
+      description: Get the names of all available graphs on server
+      produces:
+      - application/json
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              type: string
+              example: "Citibike"
+  /graph/{databaseName}:
+      post:
+        summary: Return whole graph
+        operationId: getGraph
+        description: Returns the selected Graph in cytoscape format
+        consumes:
+        - application/json
+        produces:
+        - application/json
+        parameters:
+        - in: path
+          name: databaseName
+          required: true
+          type: string
+          description: Name of Database that should be returned
+        responses:
+          200:
+            description: Graph Returned
+            schema:
+              $ref: '#/definitions/Graph'
+          404:
+            description: databaseName does not exist
+  /keys/{databaseName}:
+    post:
+      summary: Get/Compute Keys and Labels of this database
+      operationId: getKeys
+      description: Labels and Keys for further processing
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: databaseName
+        required: true
+        type: string
+        description: Name of Database that should be returned
+      responses:
+        200:
+          description: Keys And Labels
+          schema:
+            $ref: '#/definitions/KeysAndLabels'
+        404:
+          description: Unknown databaseName
+  /grouping:
+    post:
+      summary: grouping operation
+      operationId: grouping
+      description: Performs Snapshot operation on a graph
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: GroupingRequest
+        schema:
+          $ref: '#/definitions/GroupingRequest'
+        description: Grouping Request
+      responses:
+        200:
+          description: Graph Returned
+          schema:
+            $ref: '#/definitions/Graph'
+        400:
+          description: Invalid Grouping Request
+  /snapshot:
+    post:
+      summary: Snapshot operation
+      operationId: snapshot
+      description: Performs Snapshot operation on a graph
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: snapshotRequest
+        schema:
+          $ref: '#/definitions/SnapshotRequest'
+        description: Snapshot request
+      responses:
+        200:
+          description: Graph Returned
+          schema:
+            $ref: '#/definitions/Graph'
+        400:
+          description: Invalid snapshot Request
+  /difference:
+    post:
+      summary: Difference operation
+      operationId: difference
+      description: Performs difference operation on a graph
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: differenceRequest
+        schema:
+          $ref: '#/definitions/DifferenceRequest'
+        description: Difference request
+      responses:
+        200:
+          description: Graph Returned
+          schema:
+            $ref: '#/definitions/Graph'
+        400:
+          description: Invalid Difference Request  
+definitions:
+  TimeStamp:
+    type: object
+    required:
+    - predicate
+    - startDate
+    properties:
+      predicate:
+        $ref: '#/definitions/TemporalPredicate'
+      startDate:
+        type: string
+        format: date-time
+        example: "2016-08-29T09:12:33.001Z"
+      endDate:
+        type: string
+        format: date-time
+        example: "2017-07-21T17:32:28Z"
+  SnapshotRequest:
+    type: object
+    required:
+      - dbName
+      - timeStamp
+      - timeDim
+    properties:
+      timeDim:
+        $ref: '#/definitions/TimeDimension'
+      timeStamp:
+        $ref: '#/definitions/TimeStamp'
+      dbName: 
+        type: string
+        example: "Citibike"
+  DifferenceRequest:
+    type: object
+    required:
+      - dbName
+      - from
+      - to
+      - timeDim
+    properties:
+      from:
+        $ref: '#/definitions/TimeStamp'
+      to:
+        $ref: '#/definitions/TimeStamp'
+      dbName: 
+        type: string
+        example: "Citibike"
+      timeDim:
+        $ref: '#/definitions/TimeDimension'
+  GroupingRequest:
+    type: object
+    required:
+    - dbName
+    - vertexKeys
+    - edgeKeys
+    - vertexFilters
+    - edgeFilters
+    - vertexAggrFuncs
+    - edgeAggrFuncs
+    - filterAllEdges
+    properties:
+      dbName:
+        type: string
+        example: Citibike
+      vertexKeys:
+        type: array
+        items:
+          type: string
+  TemporalPredicate:
+    type: string
+    enum:
+      - All
+      - AsOf
+      - Between
+      - ContainedIn
+      - CreatedIn
+      - DeletedIn
+      - FromTo
+      - Overlaps
+      - Precedes
+      - Succeeds
+      - ValidDuring
+  TemporalAggregation:
+    type: string
+    enum:
+      - AverageDuration
+      - AverageEdgeDuration
+      - AverageVertexDuration
+      - MaxDuration
+      - MaxEdgeDuration
+      - MaxEdgeTime
+      - MaxTime
+      - MaxVertexDuration
+      - MaxVertexTime
+      - MinDuration
+      - MinEdgeDuration
+      - MinEdgeTime
+      - MinTime
+      - MinVertexDuration
+      - MinVertexTime
+  TimeDimension:
+    type: string
+    enum:
+      - TransactionTime
+      - ValidTime
+  Edge:
+    type: object
+    properties:
+      id:
+        type: string
+        example: "5ea825309e45472ee615cf21"
+      label:
+        type: string
+        example: "Trip"
+      properties:
+        type: array
+        items:
+          type: object
+          properties:
+            key: 
+              type: string
+              example: "bike_id"
+            value:
+              type: string
+              example: "30645"
+      source:
+        type: string
+        example: "5ea825199e45472ee67f7b0d"
+      target:
+        type: string
+        example: "5ea824dc9e45472ee60dd51c"
+  Node:
+    type: object
+    properties:
+      id:
+        type: string
+        example: "5ea824c59e45472ee6faf174"
+      label:
+        type: string
+        example: "Station"
+      properties:
+        type: array
+        items: 
+          type: object
+          properties:
+            key: 
+              type: string
+              example: "name"
+            value:
+              type: string
+              example: "E 30 St & Park Ave S"
+  Graph:
+    type: object
+    properties:
+      edges:
+        type: array
+        items:
+          $ref: '#/definitions/Edge'
+      nodes:
+        type: array
+        items:
+          $ref: '#/definitions/Node'
+      type: 
+        type: string
+        example: "graph"
+      graphs:
+        $ref: '#/definitions/Node'
+  KeysAndLabels:
+    type: object
+    properties:
+      vertexKeys:
+        type: array
+        items:
+          type: object
+          properties:
+            labels:
+              type: array
+              items:
+                type: string
+                example: "Station"
+            name:
+              type: string
+              example: "regionId"
+            numerical:
+              type: boolean
+      edgeKeys:
+        type: array
+        items:
+          type: object
+          properties:
+            labels:
+              type: array
+              items:
+                type: string
+                example: "Trip"
+            name:
+              type: string
+              example: "bike_id"
+            numerical:
+              type: boolean
+      vertexLabels:
+        type: array
+        items:
+          type: string
+          example: "Station"
+      edgeLabels:
+        type: array
+        items:
+          type: string
+          example: "Trip"
+# Added by API Auto Mocking Plugin
+# host: localhost
+# basePath: "/temporalgraph"
+schemes:
+ - https
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /irmlerjo/TemporalGraph/1.0.0

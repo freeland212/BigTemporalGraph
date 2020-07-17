@@ -1,6 +1,21 @@
-  <mat-form-field>
-    <input matInput [ngxMatDatetimePicker]="picker" placeholder="Wähle ein Datum">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <ngx-mat-datetime-picker #picker>
-    </ngx-mat-datetime-picker>
-  </mat-form-field>
+
+<mat-form-field matLine>
+  <mat-label>{{label}}</mat-label>
+  <mat-select [(ngModel)]="selectedPredicate" (selectionChange)="publishChanges()">
+    <mat-option *ngFor="let predicate of predicates" [value]="predicate">
+      {{predicate.value}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field matLine>
+  <input matInput [ngxMatDatetimePicker]="startPicker" placeholder="Select a date" (change)="publishChanges()" [disabled]="!selectedPredicate">
+  <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+  <ngx-mat-datetime-picker #startPicker>
+  </ngx-mat-datetime-picker>
+</mat-form-field>
+<mat-form-field matLine>
+  <input matInput [ngxMatDatetimePicker]="endPicker" placeholder="Select an Enddate" (change)="publishChanges()" [disabled]="!selectedPredicate?.endRequired">
+  <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+  <ngx-mat-datetime-picker #endPicker>
+  </ngx-mat-datetime-picker>
+</mat-form-field>

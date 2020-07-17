@@ -1,3 +1,15 @@
-<app-select-graph></app-select-graph>
-<br>
-<app-time-stamp></app-time-stamp>
+<div class="content" fxLayout="column" fxFlexFill style="height: 100%; min-height: 100%; min-width: 100%; width: 100%; box-sizing: border-box;">
+
+    <div fxFlex="30" class="sec1">
+        <app-select-graph (dbName)="onDbNameChanged($event)" style="display:block;"></app-select-graph>
+        <app-time-stamp (timeStamp)="onTimeStampChanged($event)" label="Timestamp" style="display:block;">
+        </app-time-stamp>
+        <button mat-button (click)="onExecute()">Execute</button>
+    </div>
+    <div fxFlex="70" id="snapshotCanvas" style="height:100%;
+            border-color:black;
+            border-width: 1px;
+            border-radius: 20px;
+            border-style:solid;"></div>
+
+</div>

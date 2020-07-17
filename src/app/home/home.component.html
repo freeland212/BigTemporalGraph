@@ -1,5 +1,5 @@
-<mat-tab-group>
-    <mat-tab label="Snapshot"><app-snapshot></app-snapshot> </mat-tab>
-    <mat-tab label="Difference"> <app-difference></app-difference> </mat-tab>
+<mat-tab-group dynamicHeight>
+    <mat-tab label="Snapshot"><ng-template matTabContent><app-snapshot></app-snapshot></ng-template> </mat-tab>
+    <mat-tab label="Difference"> <ng-template matTabContent><app-difference></app-difference></ng-template> </mat-tab>
     <mat-tab label="Grouping"> <app-grouping></app-grouping>  </mat-tab>
   </mat-tab-group>

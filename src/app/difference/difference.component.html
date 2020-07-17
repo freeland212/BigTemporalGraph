@@ -1,5 +1,18 @@
-<app-select-graph></app-select-graph>
-<br>
-<app-time-stamp></app-time-stamp>
-<br>
-<app-time-stamp></app-time-stamp>
+<div class="content2" fxLayout="column" fxFlexFill>
+
+    <div fxFlex="230px" class="sec1">
+        <app-select-graph (dbName)="onDbNameChanged($event)" style="display:block;"></app-select-graph>
+        <app-time-stamp (timeStamp)="onFromChanged($event)" label="From" style="display:block;">
+        </app-time-stamp>
+        <app-time-stamp (timeStamp)="onToChanged($event)" label="To" style="display:block;">
+        </app-time-stamp>
+        <button mat-button (click)="onExecute()">Execute</button>
+    </div>
+    <div fxFlex="500px" id="differenceCanvas" style="height:100px;
+
+            border-color:black;
+            border-width: 1px;
+            border-radius: 20px;
+            border-style:solid;"></div>
+
+</div>

@@ -19,6 +19,12 @@ import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
+import { DefaultService } from 'src/gen/generatedAngular';
+import { RestService } from './rest.service';
+import { HttpClientModule } from '@angular/common/http';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatListModule} from '@angular/material/list';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -44,9 +50,16 @@ import { NgxMatMomentModule } from '@angular-material-components/moment-adapter'
     ReactiveFormsModule,
     MatButtonModule,
     NgxMatDatetimePickerModule,
-    NgxMatMomentModule
+    NgxMatMomentModule,
+    HttpClientModule,
+    MatGridListModule,
+    MatListModule,
+    FlexLayoutModule
   ],
-  providers: [],
+  providers: [
+  DefaultService,
+  RestService  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

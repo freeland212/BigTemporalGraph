@@ -1,6 +1,6 @@
-<mat-form-field>
-    <mat-label>Select Graph</mat-label>
-    <mat-select>
+<mat-form-field matLine>
+    <mat-label >Select Graph</mat-label>
+    <mat-select [(ngModel)]="selectedGraph" (selectionChange)="publishChanges()">
       <mat-option *ngFor="let graph of graphs" [value]="graph">
         {{graph}}
       </mat-option>
