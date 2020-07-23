@@ -25,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatListModule} from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatRadioModule} from '@angular/material/radio';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { MatRadioModule} from '@angular/material/radio';
     MatListModule,
     FlexLayoutModule,
     MatRadioModule,
+    MatCardModule
   ],
   providers: [
   DefaultService,

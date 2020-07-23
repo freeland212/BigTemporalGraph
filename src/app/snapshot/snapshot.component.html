@@ -4,6 +4,10 @@
         <app-select-graph (dbName)="onDbNameChanged($event)" style="display:block;"></app-select-graph>
         <app-time-stamp (timeStamp)="onTimeStampChanged($event)" label="Timestamp" style="display:block;">
         </app-time-stamp>
+        <mat-radio-group [(ngModel)]="timeDim">
+            <mat-radio-button value="valid">Valid Time</mat-radio-button>
+            <mat-radio-button value="transaction">Transaction Time</mat-radio-button>
+        </mat-radio-group>
         <button mat-button (click)="onExecute()">Execute</button>
     </div>
     <div fxFlex="70" id="snapshotCanvas" style="height:100%;

@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { RestService } from '../rest.service';
 import * as cytoscape from 'cytoscape';
-import { Graph, TimeStamp } from 'src/gen/generatedAngular';
+import { Graph, TimeStamp, TimeDimension } from 'src/gen/generatedAngular';
 
 @Component({
   selector: 'app-difference',
@@ -15,6 +15,7 @@ export class DifferenceComponent implements AfterViewInit {
   public toTimeStamp = null;
   public dbName: string;
   private cy: cytoscape.Core;
+  public timeDim="valid";  
 
   public aggrPrefixes = ['min ', 'max ', 'sum '];
 
@@ -176,7 +177,7 @@ export class DifferenceComponent implements AfterViewInit {
 
   public async onExecute() {
 
-    let graph: Graph = await this.restService.difference(this.dbName, this.fromTimeStamp,this.toTimeStamp);
+    let graph: Graph = await this.restService.difference(this.dbName, this.fromTimeStamp,this.toTimeStamp,this.timeDim==="valid"?TimeDimension.ValidTime:TimeDimension.TransactionTime);
     this.cy.elements().remove();
     // set conaining all distinct labels (property key specified by vertexLabelKey)
     let labels = new Set();

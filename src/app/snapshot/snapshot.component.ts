@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { RestService } from '../rest.service';
-import { TimeStamp, Graph } from 'src/gen/generatedAngular';
+import { TimeStamp, Graph, TimeDimension } from 'src/gen/generatedAngular';
 import * as cytoscape from 'cytoscape';
 
 @Component({
@@ -12,6 +12,7 @@ export class SnapshotComponent implements AfterViewInit {
 
   public timeStamp = null;
   public dbName: string;
+  public timeDim="valid";
   private cy: cytoscape.Core;
 
   public aggrPrefixes = ['min ', 'max ', 'sum '];
@@ -164,7 +165,7 @@ export class SnapshotComponent implements AfterViewInit {
 
   public async onExecute() {
 
-    let graph: Graph = await this.restService.snapshot(this.dbName, this.timeStamp);
+    let graph: Graph = await this.restService.snapshot(this.dbName, this.timeStamp,this.timeDim==="valid"?TimeDimension.ValidTime:TimeDimension.TransactionTime);
     this.cy.elements().remove();
     // set conaining all distinct labels (property key specified by vertexLabelKey)
     let labels = new Set();

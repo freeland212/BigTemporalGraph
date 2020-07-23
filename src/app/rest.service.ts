@@ -9,10 +9,10 @@ export class RestService {
   constructor(public defaultService:DefaultService) {
 
   }
-  public snapshot(dbName:string,timeStamp:TimeStamp):Promise<Graph> {
+  public snapshot(dbName:string,timeStamp:TimeStamp,timeDimension:TimeDimension):Promise<Graph> {
 
     let snapshotJson: SnapshotRequest = {
-      timeDim: TimeDimension.ValidTime,
+      timeDim: timeDimension,
       timeStamp:
       {
         predicate: timeStamp.predicate,
@@ -25,10 +25,10 @@ export class RestService {
     return result.toPromise();
   }
 
-  public difference(dbName:string,from:TimeStamp,to:TimeStamp) {
+  public difference(dbName:string,from:TimeStamp,to:TimeStamp,timeDimension:TimeDimension) {
 
     let differenceJson: DifferenceRequest = {
-      timeDim: TimeDimension.ValidTime,
+      timeDim: timeDimension,
       from:
       {
         predicate: from.predicate,

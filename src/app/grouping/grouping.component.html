@@ -2,11 +2,21 @@
 
     <div fxFlex="230px" class="sec1">
         <app-select-graph (dbName)="onDbNameChanged($event)" style="display:block;"></app-select-graph>
-        <mat-radio-group aria-label="Select an option">
-            <mat-radio-button value="1">Option 1</mat-radio-button>
-            <mat-radio-button value="2">Option 2</mat-radio-button>
-          </mat-radio-group>
+        <mat-radio-group aria-label="Select Time">
+            <mat-radio-button value="1">Valid Time</mat-radio-button>
+            <mat-radio-button value="2">Transaction Time</mat-radio-button>
+        </mat-radio-group>
         <button mat-button (click)="onExecute()">Execute</button>
+        <button mat-button (click)="addGroupingKey()">+</button>
+        <button mat-button (click)="removeGroupingKey()" *ngIf="groupingKeys.length>0">-</button>
+        <mat-card *ngFor="let groupingKey of groupingKeys;let index=index;trackBy:trackByIndex;">
+            <mat-card-title>Grouping Key {{index+1}}</mat-card-title>
+            <mat-radio-group [(ngModel)]="groupingKeys[index]">
+                <mat-radio-button [value]=0>Temporal Grouping Key</mat-radio-button>
+                <mat-radio-button [value]=1>Predicate Grouping Key</mat-radio-button>
+                <mat-radio-button [value]=2>Label Grouping Key</mat-radio-button>
+            </mat-radio-group>
+        </mat-card>
     </div>
     <div fxFlex="500px" id="differenceCanvas" style="height:100px;
 

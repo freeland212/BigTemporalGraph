@@ -6,6 +6,10 @@
         </app-time-stamp>
         <app-time-stamp (timeStamp)="onToChanged($event)" label="To" style="display:block;">
         </app-time-stamp>
+        <mat-radio-group [(ngModel)]="timeDim">
+            <mat-radio-button value="valid">Valid Time</mat-radio-button>
+            <mat-radio-button value="transaction">Transaction Time</mat-radio-button>
+        </mat-radio-group>
         <button mat-button (click)="onExecute()">Execute</button>
     </div>
     <div fxFlex="500px" id="differenceCanvas" style="height:100px;
@@ -14,5 +18,6 @@
             border-width: 1px;
             border-radius: 20px;
             border-style:solid;"></div>
+
 
 </div>
