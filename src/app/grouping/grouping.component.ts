@@ -15,6 +15,11 @@ export class GroupingComponent implements AfterViewInit {
   //Grouping Keys
   public groupingKeys: number[]=[];
 
+  //Aggregation Functions
+  public aggregationFunctions: number[]=[];
+
+  public timeStamp = null;
+
 
   constructor(public restService: RestService) {
   }
@@ -28,6 +33,13 @@ export class GroupingComponent implements AfterViewInit {
   }
   removeGroupingKey(){
     this.groupingKeys.pop();
+  }
+
+  addAggregationFunction(){
+    this.aggregationFunctions.push(0);
+  }
+  removeAggregationFunction(){
+    this.aggregationFunctions.pop();
   }
 
 

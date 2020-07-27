@@ -1,0 +1,11 @@
+
+<mat-form-field matLine>
+  <mat-label>{{label}}</mat-label>
+  <mat-select [(ngModel)]="selectedPredicate" (selectionChange)="publishChanges()">
+    <mat-option *ngFor="let predicate of predicates" [value]="predicate">
+      {{predicate.value}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+

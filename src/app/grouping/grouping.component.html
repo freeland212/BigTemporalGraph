@@ -7,8 +7,8 @@
             <mat-radio-button value="2">Transaction Time</mat-radio-button>
         </mat-radio-group>
         <button mat-button (click)="onExecute()">Execute</button>
-        <button mat-button (click)="addGroupingKey()">+</button>
-        <button mat-button (click)="removeGroupingKey()" *ngIf="groupingKeys.length>0">-</button>
+        <button mat-stroked-button (click)="addGroupingKey()">+</button>
+        <button mat-stroked-button (click)="removeGroupingKey()" *ngIf="groupingKeys.length>0">-</button>
         <mat-card *ngFor="let groupingKey of groupingKeys;let index=index;trackBy:trackByIndex;">
             <mat-card-title>Grouping Key {{index+1}}</mat-card-title>
             <mat-radio-group [(ngModel)]="groupingKeys[index]">
@@ -16,6 +16,25 @@
                 <mat-radio-button [value]=1>Predicate Grouping Key</mat-radio-button>
                 <mat-radio-button [value]=2>Label Grouping Key</mat-radio-button>
             </mat-radio-group>
+            <mat-radio-group [(ngModel)]="groupingKeys[index]">
+                <mat-radio-button [value]=0>Valid Time</mat-radio-button>
+                <mat-radio-button [value]=1>Transaction Time</mat-radio-button>
+                <mat-radio-button [value]=2>Vertices</mat-radio-button>
+                <mat-radio-button [value]=3>Edges</mat-radio-button>
+            </mat-radio-group>
+        </mat-card>
+        <br>
+        <button mat-stroked-button (click)="addAggregationFunction()">+</button>
+        <button mat-stroked-button (click)="removeAggregationFunction()" *ngIf="aggregationFunctions.length>0">-</button>
+        <mat-card *ngFor="let aggregationFunction of aggregationFunctions;let index=index;trackBy:trackByIndex;">
+            <mat-card-title>Aggregation Function {{index+1}}</mat-card-title>
+            <mat-radio-group [(ngModel)]="aggregationFunctions[index]">
+                <mat-radio-button [value]=0>Vertices</mat-radio-button>
+                <mat-radio-button [value]=1>Edges</mat-radio-button>
+                <mat-radio-button [value]=2>All</mat-radio-button>
+            </mat-radio-group>
+            <app-parameter-stamp (parameterStamp)="onParameterStampChanged($event)" label="Parameterstamp" style="display:block;">
+            </app-parameter-stamp>
         </mat-card>
     </div>
     <div fxFlex="500px" id="differenceCanvas" style="height:100px;
